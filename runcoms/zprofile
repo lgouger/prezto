@@ -5,6 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+export JAVA_HOME=`/usr/libexec/java_home -F -v 1.8 -a x86_64 -d64`
+export GIT_BASE="$HOME/git"
+export MYSQL_HOME="$(brew --prefix mysql@5.7)"
+export GOPATH="$HOME/go"
+
 #
 # Browser
 #
@@ -17,8 +22,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
@@ -46,6 +51,7 @@ path=(
   /usr/local/{bin,sbin}
   $path
 )
+eval `$HOME/bin/path_helper.pl ./.paths ./.paths.d ./.man_paths`
 
 #
 # Less
@@ -54,10 +60,42 @@ path=(
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-F -g -i -M -R -S -w -X -z-4'
+# export LESS='-F -g -i -M -R -S -w -X -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-fi
+# if (( $#commands[(i)lesspipe(|.sh)] )); then
+#   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+# fi
+
+export LESS="-x4 -m -R"
+export LESSOPEN="| highlight -q --out-format=truecolor --base16 --style=tomorrow-night %s"
+
+# for use with java 8
+export JAVA_OPTS="-Xms256m -Xmx2g"
+
+# export MAVEN_OPTS="$MAVEN_OPTS $JAVA_OPTS -javaagent:/Users/ddclarryg/git/build/lib/spring-instrument-3.1.0.RELEASE.jar -Dorg.mortbay.xml.XmlParser.NotValidating=true"
+export MAVEN_OPTS="$MAVEN_OPTS $JAVA_OPTS -Dorg.aspectj.weaver.showWeaveInfo=false -Dorg.mortbay.xml.XmlParser.NotValidating=true -javaagent:/Users/ddclarryg/git/build/lib/aspectjweaver-1.8.4.jar -javaagent:/Users/ddclarryg/git/build/lib/spring-instrument-3.1.0.RELEASE.jar"
+
+
+export SUGAR="4341464542414245"
+
+
+
+
+function psgrep {
+    ps augxww | grep --color=always "$@" | grep -v grep
+}
+
+function tz {
+    date +"%Z %z"
+}
+
+function lsh {
+    ls -Ghlt "$@" | head -20
+}
+
+function md {
+    pandoc -s -t man "$@" | nroff -man | less
+}
+
