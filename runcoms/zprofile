@@ -5,7 +5,8 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-export JAVA_HOME=`/usr/libexec/java_home -F -v 1.8 -a x86_64 -d64`
+# export JAVA_HOME=`/usr/libexec/java_home -F -v 1.8 -a x86_64 -d64`
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home"
 export GIT_BASE="$HOME/git"
 export MYSQL_HOME="$(brew --prefix mysql@5.7)"
 export GOPATH="$HOME/go"
