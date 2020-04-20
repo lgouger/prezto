@@ -53,6 +53,7 @@ path=(
   $path
 )
 eval `$HOME/bin/path_helper.pl ./.paths ./.paths.d ./.man_paths`
+rehash
 
 #
 # Less
