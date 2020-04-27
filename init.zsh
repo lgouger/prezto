@@ -4,6 +4,7 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+echo ".zprezto/init.sh"
 
 #
 # Version Check

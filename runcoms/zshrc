@@ -4,9 +4,10 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+echo ".zshrc"
 
-# Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  echo "Source Prezto."
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
@@ -15,6 +16,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export EDITOR=vim
 
 # Customize to your needs...
+echo "POWERLEVEL9K_MODE"
 
 POWERLEVEL9K_MODE='nerdfont-complete'
 
@@ -51,6 +53,6 @@ typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 # directory will be shortened only when prompt doesn't fit.
 typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=80
 
-for i in $HOME/.zsh.d/*.sh; do source $i; done
-unset -v i
+# for i in $HOME/.zsh.d/*.sh; do source $i; done
+# unset -v i
 
