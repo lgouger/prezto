@@ -4,10 +4,8 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-echo ".zshrc"
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  echo "Source Prezto."
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
@@ -16,14 +14,20 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export EDITOR=vim
 
 # Customize to your needs...
-echo "POWERLEVEL9K_MODE"
-
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 export DEFAULT_USER=$USER
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    context
+    dir
+    virtualenv
+    vcs)
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs virtualenv time)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs custom_alks time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+    status
+    root_indicator
+    background_jobs
+    custom_alks)
 POWERLEVEL9K_CUSTOM_ALKS="alks-whoami"
 POWERLEVEL9K_CUSTOM_ALKS_BACKGROUND="blue"
 POWERLEVEL9K_CUSTOM_ALKS_FOREGROUND="yellow"
@@ -53,6 +57,9 @@ typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 # directory will be shortened only when prompt doesn't fit.
 typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=80
 
-# for i in $HOME/.zsh.d/*.sh; do source $i; done
-# unset -v i
+# echo "loading .zsh.d files"
+for i in $HOME/.zsh.d/*.sh; do source $i; done
+unset -v i
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

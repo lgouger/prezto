@@ -5,7 +5,6 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# export JAVA_HOME=`/usr/libexec/java_home -F -v 1.8 -a x86_64 -d64`
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-8.jdk/Contents/Home"
 export GIT_BASE="$HOME/git"
 export MYSQL_HOME="$(brew --prefix mysql@5.7)"
@@ -81,22 +80,4 @@ export MAVEN_OPTS="$MAVEN_OPTS $JAVA_OPTS -Dorg.aspectj.weaver.showWeaveInfo=fal
 
 export SUGAR="4341464542414245"
 
-
-
-
-function psgrep {
-    ps augxww | grep --color=always "$@" | grep -v grep
-}
-
-function tz {
-    date +"%Z %z"
-}
-
-function lsh {
-    ls -Ghlt "$@" | head -20
-}
-
-function md {
-    pandoc -s -t man "$@" | nroff -man | less
-}
 
