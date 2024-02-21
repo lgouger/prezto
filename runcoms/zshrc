@@ -5,9 +5,29 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
+fpath=($HOME/.zfunc /usr/local/share/zsh-completions $fpath)
+
+# echo "loading .zsh.d files"
+for i in $HOME/.zsh.d/*.sh; do source $i; done
+unset -v i
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/Larry.Gouger/.sdkman"
+[[ -s "/Users/Larry.Gouger/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/Larry.Gouger/.sdkman/bin/sdkman-init.sh"
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+# [ -s "/Users/larry.gouger/.bun/_bun" ] && source "/Users/larry.gouger/.bun/_bun"
+
+# bun
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"

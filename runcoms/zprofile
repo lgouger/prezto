@@ -5,6 +5,16 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# to make sure `brew` works in the following commands
+[[ ! -d "/opt/homebrew/bin" ]] || export PATH=/opt/homebrew/bin:$PATH
+
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home"
+export GIT_BASE="$HOME/git"
+export MYSQL_HOME="$(brew --prefix mysql@5.7)"
+export GOPATH="$HOME/go"
+export PYENV_ROOT="$HOME/.pyenv"
+export BUN_INSTALL="$HOME/.bun"
+
 #
 # Browser
 #
@@ -18,10 +28,10 @@ fi
 #
 
 if [[ -z "$EDITOR" ]]; then
-  export EDITOR='nano'
+  export EDITOR='nvim'
 fi
 if [[ -z "$VISUAL" ]]; then
-  export VISUAL='nano'
+  export VISUAL='nvim'
 fi
 if [[ -z "$PAGER" ]]; then
   export PAGER='less'
@@ -43,17 +53,20 @@ fi
 typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that cd searches.
-# cdpath=(
-#   $cdpath
-# )
+cdpath=(
+    $HOME
+    $GIT_BASE/ghe
+)
 
 # Set the list of directories that Zsh searches for programs.
 path=(
   $HOME/{,s}bin(N)
+  $HOME/.local/{,s}bin(N)
   /opt/{homebrew,local}/{,s}bin(N)
   /usr/local/{,s}bin(N)
   $path
 )
+eval `$HOME/bin/path_helper.pl ./.paths ./.paths.d ./.man_paths`
 
 #
 # Less
@@ -61,13 +74,25 @@ path=(
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-# Remove -X to enable it.
-if [[ -z "$LESS" ]]; then
-  export LESS='-g -i -M -R -S -w -X -z-4'
-fi
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+# export LESS='-F -g -i -M -R -S -w -X -z-4'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
-fi
+# if (( $#commands[(i)lesspipe(|.sh)] )); then
+#   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+# fi
+
+export LESS="-x4 -m -R --mouse --wheel-lines=3"
+export LESSOPEN="| highlight -q --out-format=truecolor --style=base16/tomorrow-night %s"
+
+# for use with java 8
+export JAVA_OPTS="-Xms1g -Xmx4g"
+
+# export MAVEN_OPTS="$MAVEN_OPTS $JAVA_OPTS -javaagent:/Users/ddclarryg/git/build/lib/spring-instrument-3.1.0.RELEASE.jar -Dorg.mortbay.xml.XmlParser.NotValidating=true"
+export MAVEN_OPTS="$MAVEN_OPTS $JAVA_OPTS -Dorg.aspectj.weaver.showWeaveInfo=false -Dorg.mortbay.xml.XmlParser.NotValidating=true -javaagent:/Users/ddclarryg/git/build/lib/aspectjweaver-1.8.4.jar -javaagent:/Users/ddclarryg/git/build/lib/spring-instrument-3.1.0.RELEASE.jar"
+
+export SUGAR="4341464542414245"
+
+export AWS_DEFAULT_REGION=us-west-2
+
